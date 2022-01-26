@@ -2,7 +2,7 @@
   "ci": {
     "collect": {
       "settings": {
-        "extraHeaders": "{\"Authorization\":\"Z29sZHRlc3Q6ZzBsZDVpdmU=\"}"
+        "extraHeaders": "{\"Authorization: Basic Z29sZHRlc3Q6ZzBsZDVpdmU=\"}"
       }
     }  
    }
