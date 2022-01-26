@@ -6,23 +6,26 @@ on:
         description: 'url to run test'
         required: true
         default: 'https://b01www.selfridges.com/GB/en/'
-      pass:
-        description: 'Basic auth'
+      user:
+        description: 'User'
         required: true
-        default: 'Z29sZHRlc3Q6ZzBsZDVpdmUK'
+        default: 'goldtest'
+      pass:
+        description: 'Pass'
+        required: true
+        default: 'g0ld5ive'
 
 jobs:
-  lighthouseci:
+  lighthouse:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Audit URLs using Lighthouse
+        uses: treosh/lighthouse-ci-action@v8
         with:
-          persist-credentials: false
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 14
-          persist-credentials: false
-      - run: npm install
-      - run: npm run build
-      - run: npm install -g @lhci/cli@0.8.x
-      - run: lhci collect --url="${{ inputs.url }}" --extra-headers="{\"Authorization\":\"${{ inputs.pass }}\"}" --numberOfRuns=1
+          urls: |
+            ${{ inputs.url }}
+          uploadArtifacts: true # save results as an action artifacts
+          temporaryPublicStorage: true # upload lighthouse report to the temporary storage
+          basicAuthUsername: ${{ inputs.user }}
+          basicAuthPassword: ${{ inputs.pass }}
