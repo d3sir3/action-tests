@@ -21,19 +21,10 @@ const PORT = 8041;
  * @param {string} origin
  */
 async function login(browser, origin) {
+  const headers = {'Authorization' : 'Basic PASS'};
   const page = await browser.newPage();
+  await page.setExtraHTTPHeaders(headers);
   await page.goto(origin);
-  await page.waitForSelector('input[type="Username]', {visible: true});
-
-  // Fill in and submit login form.
-  const usernameInput = await page.$('input[type="Username"]');
-  await usernameInput.type('USERNAME');
-  const passwordInput = await page.$('input[type="Password"]');
-  await passwordInput.type('PASSWORD');
-  await Promise.all([
-    page.$eval('.login-form', form => form.submit()),
-    page.waitForNavigation(),
-  ]);
 
   await page.close();
 }
