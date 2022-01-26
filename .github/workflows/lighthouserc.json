@@ -1,7 +1,7 @@
 {
   "ci": {
     "collect": {
-      "puppeteerScript": "./login.js"
+      "puppeteerScript": ".github/workflows/login.js"
     }  
    }
 }
