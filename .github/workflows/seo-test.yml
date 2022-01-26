@@ -13,7 +13,7 @@ on:
       pass:
         description: 'Pass'
         required: true
-        default: 'g0ld5ive'
+        default: ''
 
 jobs:
   lighthouse:
@@ -24,8 +24,8 @@ jobs:
         uses: treosh/lighthouse-ci-action@v8
         with:
           urls: |
-            ${{ inputs.url }}
+            ${{ github.event.inputs.url }}
           uploadArtifacts: true # save results as an action artifacts
           temporaryPublicStorage: true # upload lighthouse report to the temporary storage
-          basicAuthUsername: ${{ inputs.user }}
-          basicAuthPassword: ${{ inputs.pass }}
+          basicAuthUsername: ${{ github.event.inputs.user }}
+          basicAuthPassword: ${{ github.event.inputs.pass }}
