@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Update var
         run: |
-          sed -i -e "s|PASS|${{ github.event.inputs.pass }}|g" .github/workflows/login.js
+          sed -i -e "s|PASS|${{ github.event.inputs.pass }}|g" .github/workflows/lighthouserc.json
       - name: Audit URLs using Lighthouse
         uses: treosh/lighthouse-ci-action@v8
         with:
