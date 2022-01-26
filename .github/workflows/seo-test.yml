@@ -29,8 +29,6 @@ jobs:
           node-version: 17.x
       - name: npm install, build
         run: |
-          npm install
-          npm run build
           npm install puppeteer
           
       - name: Audit URLs using Lighthouse
