@@ -1,4 +1,4 @@
-name: Run SEO tests
+name: SEO
 on:
   workflow_dispatch:
     inputs:
