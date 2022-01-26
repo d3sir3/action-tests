@@ -1,9 +1,7 @@
 {
   "ci": {
     "collect": {
-      "settings": {
-        "extraHeaders": "{\"Authorization:\" \"Basic\" \"Z29sZHRlc3Q6ZzBsZDVpdmU=\"}"
-      }
+      "puppeteerScript": "./login.js"
     }  
    }
 }
