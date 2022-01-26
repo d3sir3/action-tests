@@ -1,0 +1,24 @@
+name: Run SEO tests
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: 'url to run test'
+        required: true
+        default: 'https://b01www.selfridges.com/GB/en/'
+      pass:
+        description: 'Basic auth'
+        required: true
+        default: 'Z29sZHRlc3Q6ZzBsZDVpdmUK'
+
+jobs:
+  lighthouseci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - run: npm install && npm install -g @lhci/cli@0.8.x
+      - run: npm run build
+      - run: lhci collect --url="${{ inputs.url }}" --extra-headers="{\"Authorization\":\"${{ inputs.pass }}\"}" --numberOfRuns=1
