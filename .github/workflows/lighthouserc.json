@@ -1,6 +1,9 @@
 {
   "ci": {
-    "collect":
-      "puppeteerScript": "./login.js"
-    }
+    "collect": {
+      "settings": {
+        "extraHeaders": "{\"Authorization\":\"PASS\"}"
+      }
+    }  
+   }
 }
