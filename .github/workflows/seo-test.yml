@@ -16,9 +16,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@v1
         with:
           node-version: 14
+          persist-credentials: false
       - run: npm install && npm install -g @lhci/cli@0.8.x
       - run: npm run build
       - run: lhci collect --url="${{ inputs.url }}" --extra-headers="{\"Authorization\":\"${{ inputs.pass }}\"}" --numberOfRuns=1
