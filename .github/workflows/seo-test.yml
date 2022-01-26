@@ -22,6 +22,7 @@ jobs:
         with:
           node-version: 14
           persist-credentials: false
-      - run: npm install && npm install -g @lhci/cli@0.8.x
+      - run: npm install
       - run: npm run build
+      - run: npm install -g @lhci/cli@0.8.x
       - run: lhci collect --url="${{ inputs.url }}" --extra-headers="{\"Authorization\":\"${{ inputs.pass }}\"}" --numberOfRuns=1
