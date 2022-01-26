@@ -3,5 +3,4 @@
     "collect":
       "puppeteerScript": "./login.js"
     }
-  }
 }
