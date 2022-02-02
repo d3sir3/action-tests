@@ -11,7 +11,7 @@
  */
 
 const puppeteer = require('puppeteer');
-const lighthouse = require('lighthouse');
+//const lighthouse = require('lighthouse');
 
 // This port will be used by Lighthouse later. The specific port is arbitrary.
 const PORT = 8041;
