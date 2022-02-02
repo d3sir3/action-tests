@@ -54,12 +54,12 @@ async function main() {
   // The local server is running on port 10632.
   const url = 'URL';
   // Direct Lighthouse to use the same port.
-  const result = await lighthouse(url, {port: PORT, disableStorageReset: true});
+  //const result = await lighthouse(url, {port: PORT, disableStorageReset: true});
   // Direct Puppeteer to close the browser as we're done with it.
   await browser.close();
 
   // Output the result.
-  console.log(JSON.stringify(result.lhr, null, 2));
+  //console.log(JSON.stringify(result.lhr, null, 2));
 }
 
 if (require.main === module) {
