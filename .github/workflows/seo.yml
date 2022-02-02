@@ -33,5 +33,4 @@ jobs:
       - name: login
         run: |
           node .github/workflows/login.js
-      - run: lhci collect --url="${{ github.event.inputs.url }}" 
-      #--puppeteerScript=".github/workflows/login.js"
+      - run: lhci collect --url="${{ github.event.inputs.url }}" --puppeteerScript=".github/workflows/login.js" numberOfRuns=1
