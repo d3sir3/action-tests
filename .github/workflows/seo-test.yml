@@ -24,17 +24,17 @@ jobs:
         run: |
           sed -i -e "s|PASS|${{ github.event.inputs.pass }}|g" .github/workflows/login.js
           sed -i -e "s|URL|${{ github.event.inputs.url }}|g" .github/workflows/login.js
-      - name: Use Node.js 17.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: 17.x
-      - name: npm install, build
-        run: |
-          npm install puppeteer
+    #  - name: Use Node.js 17.x
+    #    uses: actions/setup-node@v1
+    #    with:
+    #      node-version: 17.x
+    #  - name: npm install, build
+    #    run: |
+    #      npm install puppeteer
           
-      - name: login
-        run: |
-          node .github/workflows/login.js
+    #  - name: login
+    #    run: |
+    #      node .github/workflows/login.js
           
       - name: Audit URLs using Lighthouse
         uses: treosh/lighthouse-ci-action@v8
