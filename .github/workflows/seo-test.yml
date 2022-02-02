@@ -23,6 +23,7 @@ jobs:
       - name: Update var
         run: |
           sed -i -e "s|PASS|${{ github.event.inputs.pass }}|g" .github/workflows/login.js
+          sed -i -e "s|URL|${{ github.event.inputs.url }}|g" .github/workflows/login.js
       - name: Use Node.js 17.x
         uses: actions/setup-node@v1
         with:
@@ -31,11 +32,15 @@ jobs:
         run: |
           npm install puppeteer
           
+      - name: login
+        run: |
+          node .github/workflows/login.js
+          
       - name: Audit URLs using Lighthouse
         uses: treosh/lighthouse-ci-action@v8
         with:
           urls: |
             ${{ github.event.inputs.url }}
-          configPath: '.github/workflows/lighthouserc.json'
+          #configPath: '.github/workflows/lighthouserc.json'
           uploadArtifacts: true # save results as an action artifacts
           temporaryPublicStorage: true # upload lighthouse report to the temporary storage
