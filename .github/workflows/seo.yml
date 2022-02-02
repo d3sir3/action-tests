@@ -1,0 +1,37 @@
+name: SEO
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: 'url to run test'
+        required: true
+        default: 'https://b01www.selfridges.com/GB/en/'
+      user:
+        description: 'User'
+        required: true
+        default: 'goldtest'
+      pass:
+        description: 'Pass'
+        required: true
+        default: ''
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - run: |
+          npm install && npm install -g @lhci/cli@0.8.x
+          npm install puppeteer
+      - name: Update var
+        run: |
+          sed -i -e "s|PASS|${{ github.event.inputs.pass }}|g" .github/workflows/login.js
+          sed -i -e "s|URL|${{ github.event.inputs.url }}|g" .github/workflows/login.js
+      - name: login
+        run: |
+          node .github/workflows/login.js
+      - run: lhci collect --url="${{ github.event.inputs.url }}" 
+      #--puppeteerScript=".github/workflows/login.js"
