@@ -5,7 +5,7 @@ on:
       url:
         description: 'url to run test'
         required: true
-        default: 'https://b01www.selfridges.com/GB/en/'
+        default: 'https://www.hotnews.ro'
       user:
         description: 'User'
         required: true
