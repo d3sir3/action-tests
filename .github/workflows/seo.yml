@@ -1,12 +1,5 @@
-name: SEO-TEST
-on:
-  workflow_dispatch:
-    inputs:
-      url:
-        description: 'url to run test'
-        required: true
-        default: 'https://www.hotnews.ro'
-
+name: Lighthouse CI
+on: push
 jobs:
   lighthouse:
     runs-on: ubuntu-latest
