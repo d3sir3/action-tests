@@ -17,5 +17,4 @@ jobs:
           node-version: 14
       - run: |
           npm install && npm install -g @lhci/cli@0.8.x
-      - name: login
       - run: lhci collect --url="${{ github.event.inputs.url }}"  numberOfRuns=1
