@@ -6,14 +6,6 @@ on:
         description: 'url to run test'
         required: true
         default: 'https://www.hotnews.ro'
-      user:
-        description: 'User'
-        required: true
-        default: 'goldtest'
-      pass:
-        description: 'Pass'
-        required: true
-        default: ''
 
 jobs:
   lighthouse:
