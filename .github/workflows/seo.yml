@@ -25,12 +25,5 @@ jobs:
           node-version: 14
       - run: |
           npm install && npm install -g @lhci/cli@0.8.x
-          npm install puppeteer
-      - name: Update var
-        run: |
-          sed -i -e "s|PASS|${{ github.event.inputs.pass }}|g" .github/workflows/login.js
-          sed -i -e "s|URL|${{ github.event.inputs.url }}|g" .github/workflows/login.js
       - name: login
-        run: |
-          node .github/workflows/login.js
-      - run: lhci collect --url="${{ github.event.inputs.url }}" --puppeteerScript=".github/workflows/login.js" numberOfRuns=1
+      - run: lhci collect --url="${{ github.event.inputs.url }}"  numberOfRuns=1
