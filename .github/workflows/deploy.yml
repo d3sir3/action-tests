@@ -1,0 +1,69 @@
+name: Environment Deployment
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        type: choice
+        options:
+          - int
+          - prd
+      location:
+        description: 'Target location'
+        required: true
+        type: choice
+        options:
+          - lpz
+          - muc
+      tag:
+        description: 'Deployment tag (leave empty for latest)'
+        required: false
+        type: string
+
+jobs:
+  validate-and-prepare:
+    runs-on: atc-ubuntu-latest
+    outputs:
+      tag: ${{ steps.determine_tag.outputs.tag }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine tag for deployment
+        id: determine_tag
+        run: |
+          # Get available tags for reference
+          echo "Available tags:"
+          git tag --sort=-creatordate | head -n 5
+          
+          # Check if tag was specified in workflow inputs
+          if [[ -n "${{ github.event.inputs.tag }}" ]]; then
+            TAG="${{ github.event.inputs.tag }}"
+            echo "Using specified tag: $TAG"
+          # Check if workflow was triggered from a tag
+          elif [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+            TAG=${GITHUB_REF#refs/tags/}
+            echo "Using tag from ref: $TAG"
+          # Use latest tag
+          else
+            TAG=$(git tag --sort=-creatordate | head -n 1)
+            if [[ -z "$TAG" ]]; then
+              echo "::error::No tags found in repository"
+              exit 1
+            fi
+            echo "Using latest tag: $TAG"
+          fi
+          
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+    
+    printInputs:
+        runs-on: ubuntu-latest
+        steps:
+            - run: |
+            echo "environment: ${{ github.event.inputs.environment }}-${{ github.event.inputs.location }} \
+                  registry: ${{ format('{0}{1}{2}weu.azurecr.io', 'crbbf', github.event.inputs.environment, github.event.inputs.location) }} \
+                  tag: ${{ needs.validate-and-prepare.outputs.tag }}"
