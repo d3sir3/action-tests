@@ -64,4 +64,8 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - run: |
-              echo "environment: ${{ github.event.inputs.environment }}-${{ github.event.inputs.location }}                     registry: ${{ format('{0}{1}{2}weu.azurecr.io', 'crbbf', github.event.inputs.environment, github.event.inputs.location) }} tag: ${{ needs.validate-and-prepare.outputs.tag }}"
+              ENVIRONMENT="${{ github.event.inputs.environment }}-${{ github.event.inputs.location }}"
+              REGISTRY="crbbf${{ github.event.inputs.environment }}${{ github.event.inputs.location }}weu.azurecr.io"
+              echo "environment: $ENVIRONMENT"
+              echo "registry: $REGISTRY"
+              echo "tag: ${{ needs.validate-and-prepare.outputs.tag }}"
