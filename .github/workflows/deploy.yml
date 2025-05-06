@@ -59,13 +59,14 @@ jobs:
           fi
           
           echo "tag=$TAG" >> $GITHUB_OUTPUT
-    
-    printInputs:
-        runs-on: ubuntu-latest
-        steps:
-            - run: |
-              ENVIRONMENT="${{ github.event.inputs.environment }}-${{ github.event.inputs.location }}"
-              REGISTRY="crbbf${{ github.event.inputs.environment }}${{ github.event.inputs.location }}weu.azurecr.io"
-              echo "environment: $ENVIRONMENT"
-              echo "registry: $REGISTRY"
-              echo "tag: ${{ needs.validate-and-prepare.outputs.tag }}"
+
+  printInputs:
+    runs-on: ubuntu-latest
+    needs: validate-and-prepare
+    steps:
+      - run: |
+          ENVIRONMENT="${{ github.event.inputs.environment }}-${{ github.event.inputs.location }}"
+          REGISTRY="crbbf${{ github.event.inputs.environment }}${{ github.event.inputs.location }}weu.azurecr.io"
+          echo "environment: $ENVIRONMENT"
+          echo "registry: $REGISTRY" 
+          echo "tag: ${{ needs.validate-and-prepare.outputs.tag }}"
