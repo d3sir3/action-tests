@@ -24,7 +24,7 @@ on:
 
 jobs:
   validate-and-prepare:
-    runs-on: atc-ubuntu-latest
+    runs-on: ubuntu-latest
     outputs:
       tag: ${{ steps.determine_tag.outputs.tag }}
     steps:
