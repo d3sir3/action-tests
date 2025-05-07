@@ -66,7 +66,9 @@ jobs:
     steps:
       - run: |
           ENVIRONMENT="${{ github.event.inputs.environment }}-${{ github.event.inputs.location }}"
-          REGISTRY="crbbf${{ github.event.inputs.environment }}${{ github.event.inputs.location }}weu.azurecr.io"
+          REGISTRY="${{ format('crbbf{0}{1}weu.azurecr.io', 
+                 github.event.inputs.environment,
+                 github.event.inputs.location) }}"
           echo "environment: $ENVIRONMENT"
           echo "registry: $REGISTRY" 
           echo "tag: ${{ needs.validate-and-prepare.outputs.tag }}"
