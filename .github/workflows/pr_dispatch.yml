@@ -1,0 +1,25 @@
+name: Run PR Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'Pull Request Number'
+        required: true
+        type: string
+
+jobs:
+  run-on-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get PR Info
+        id: get_pr
+        run: |
+          echo "Fetching PR info for PR #${{ github.event.inputs.pr_number }}"
+        env:
+          PR_NUMBER: ${{ github.event.inputs.pr_number }}
+
+      - name: Checkout PR code
+        uses: actions/checkout@v4
+        with:
+          ref: refs/pull/${{ github.event.inputs.pr_number }}/head
